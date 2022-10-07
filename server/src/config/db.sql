@@ -1,4 +1,5 @@
 -- CREATE DATABASE filemanager;
+CREATE TYPE extensionTypes AS ENUM ('image', 'video', 'audio', 'document');
 
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
@@ -14,7 +15,8 @@ CREATE TABLE files (
 	owner_id INT REFERENCES users(id) NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	type TEXT NOT NULL,
+	type extensionTypes NOT NULL,
+    extension TEXT NOT NULL,
 	url TEXT NOT NULL
 );
 
@@ -41,7 +43,8 @@ CREATE TABLE file_in_folder (
 	parent_folder_id INT REFERENCES folders(id) NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	type TEXT NOT NULL,
+	type extensionTypes NOT NULL,
+    extension TEXT NOT NULL,
 	url TEXT NOT NULL
 );
 
