@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "baseUrl": ".",
     "paths": {
+      "@routes/*": ["src/routes/*"],
       "@utils/*": ["src/utils/*"],
       "@models/*": ["../models/*"],
       "@config/*": ["src/config/*"],

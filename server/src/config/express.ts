@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as cors from 'cors';
 import loggerHandler from '@utils/logger';
+import router from 'src/routes';
 const logger = loggerHandler(moduleName);
 
 const expressApp = express();
@@ -39,8 +40,6 @@ expressApp.get('/', function (req, res) {
 });
 
 // Routes namespace
-expressApp.use('/api/v1', function (req, res) {
-  res.status(404).send('Not Found');
-});
+expressApp.use('/api/v1', router);
 
 export const app = expressApp;
