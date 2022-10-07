@@ -29,6 +29,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-const index = (router: Router, fileController: FileController) => {};
+const index = (router: Router, fileController: FileController) => {
+  router.get('/file/:id', fileController.getFile);
+  router.post('/file/:id/delete', fileController.deleteFile);
+  router.post('/file/create', fileController.saveFile);
+};
 
 export default index;
