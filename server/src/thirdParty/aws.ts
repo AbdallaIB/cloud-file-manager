@@ -3,6 +3,8 @@ const moduleName = '[s3]';
 import loggerHandler from '@utils/logger';
 const logger = loggerHandler(moduleName);
 import * as fs from 'fs';
+import { Response } from 'express';
+import { statusCodes } from '@utils/constants';
 
 AWS.config.update({
   region: process.env.AWS_REGION,
@@ -11,12 +13,12 @@ AWS.config.update({
 });
 const s3 = new AWS.S3({ apiVersion: 'latest' });
 
-const getKey = (url) => {
+const getKey = (url: string) => {
   const { pathname } = new URL(url);
   return pathname.substring(1);
 };
 
-export const getSignedUrl = async (url) => {
+export const getSignedUrl = async (url: string) => {
   const params = {
     Bucket: process.env.BUCKET_NAME,
     Key: getKey(url), // filename
@@ -25,7 +27,7 @@ export const getSignedUrl = async (url) => {
   return s3.getSignedUrl('getObject', params);
 };
 
-export const uploadMedia = async (key, mimetype, path) => {
+export const uploadMedia = async (key: string, mimetype: string, path: string, res: Response) => {
   logger.info('[uploadMedia]', { key, mimetype, path });
   try {
     const imageFile = fs.readFileSync(path);
@@ -46,6 +48,8 @@ export const uploadMedia = async (key, mimetype, path) => {
     return await s3.upload(params).promise();
   } catch (e) {
     logger.error('[uploadMedia][]', e.message);
-    return { success: false, msg: e.message };
+    return res.status(statusCodes.BAD_REQUEST).json({
+      message: 'File not found. Please try again.',
+    });
   }
 };
