@@ -1,8 +1,5 @@
 import { connectToDatabase } from '@config/database';
 import * as path from 'path';
-import * as dotenv from 'dotenv';
-
-dotenv.config({ path: path.resolve('.env') });
 
 // init database
 connectToDatabase();
