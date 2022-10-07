@@ -23,7 +23,9 @@ const storage = multer.diskStorage({
       .replace(/[^a-zA-Z0-9]/g, '')
       .replace(/\s/g, '')
       .replace('?', '')
-      .toLowerCase()}`;
+      .toLowerCase()
+      .substring(0, file.originalname.lastIndexOf('.'))
+      .substring(0, 25)}.${extension}`;
     cb(null, fileName);
   },
 });
@@ -32,7 +34,7 @@ const upload = multer({ storage });
 const index = (router: Router, fileController: FileController) => {
   router.get('/file/:id', fileController.getFile);
   router.post('/file/:id/delete', fileController.deleteFile);
-  router.post('/file/create', fileController.saveFile);
+  router.post('/file/create', upload.single('file'), fileController.saveFile);
 };
 
 export default index;
