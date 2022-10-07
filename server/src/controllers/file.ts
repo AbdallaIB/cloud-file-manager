@@ -8,35 +8,18 @@ import * as path from 'path';
 import { statusCodes } from '@utils/constants';
 import { filesize } from 'filesize';
 import { ManagedUpload } from 'aws-sdk/clients/s3';
-import { deleteLocalCopy, getMediaType } from '@utils/utils';
-import { RequestWithUser } from 'src/middlewares/auth';
+import { getMediaType } from '@utils/utils';
+import { RequestWithUser } from '@middlewares/auth';
 
 export class FileController {
   public async saveFile(req: RequestWithUser, res: Response) {
     logger.info('[saveFile][body]', req.body);
-    const maxFileSize = 10000000;
     const { id } = req.user;
     const { file, body } = req;
     const { name } = body;
-
-    if (!file) {
-      logger.error('[saveFile][File not found]');
-      return res.status(statusCodes.BAD_REQUEST).json({
-        message: 'File not found. Please try again.',
-      });
-    }
-
     const { mimetype, size, filename } = file;
     const filePath = path.resolve(__dirname, `../../uploads/${filename}`);
 
-    if (size > maxFileSize) {
-      // If greater than 10MB
-      logger.error('[Image file greater than 10MB]');
-      deleteLocalCopy(filePath);
-      return res.status(statusCodes.PAYLOAD_TOO_LARGE).json({
-        message: 'The selected image is too big. Please choose one that is smaller than 10 MB.',
-      });
-    }
     const extension = path.extname(filename).toLowerCase();
     const mediaType = getMediaType(extension);
 

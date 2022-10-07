@@ -1,15 +1,34 @@
 import { FolderController } from '@controllers/folder';
 import { Router } from 'express';
-import { body } from 'express-validator';
-import { validateToken } from 'src/middlewares/auth';
+import { body, param } from 'express-validator';
+import { validateToken } from '@middlewares/auth';
+import { validateRequest } from '@middlewares/validator';
 
 const index = (router: Router, folderController: FolderController) => {
   // get a folder
-  router.get('/folder/:id', validateToken, folderController.getFolder);
+  router.get(
+    '/folder/:id',
+    [param('id').isEmpty().withMessage('Folder id missing')],
+    validateRequest,
+    validateToken,
+    folderController.getFolder,
+  );
   // delete a folder
-  router.delete('/folder/:id', validateToken, folderController.deleteFolder);
+  router.delete(
+    '/folder/:id',
+    [param('id').isEmpty().withMessage('Folder id missing')],
+    validateRequest,
+    validateToken,
+    folderController.deleteFolder,
+  );
   // save a folder
-  router.post('/folder', validateToken, folderController.saveFolder);
+  router.post(
+    '/folder',
+    [body('folderName').isEmpty().withMessage('Folder name missing')],
+    validateRequest,
+    validateToken,
+    folderController.saveFolder,
+  );
 };
 
 export default index;
