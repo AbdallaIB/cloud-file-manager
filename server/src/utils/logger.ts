@@ -38,17 +38,17 @@ addColors(levels.colors);
 
 const loggerHandler = (moduleName) => {
   return {
-    debug(message, data) {
+    debug(message, data?) {
       logger.debug(message + (data ? ` ${JSON.stringify(data)}` : ''));
     },
     info: (message, data?) => {
       message = `${moduleName}${message}`;
       logger.info(message + (data ? ` ${JSON.stringify(data)}` : ''));
     },
-    warn(message, data) {
+    warn(message, data?) {
       logger.warn(message + (data ? ` ${JSON.stringify(data)}` : ''));
     },
-    error(message, data) {
+    error(message, data?) {
       logger.error(message + (data ? ` ${JSON.stringify(data)}` : ''));
     },
   };

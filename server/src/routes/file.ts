@@ -32,9 +32,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const index = (router: Router, fileController: FileController) => {
+  // get a file
   router.get('/file/:id', fileController.getFile);
-  router.post('/file/:id/delete', fileController.deleteFile);
-  router.post('/file/create', upload.single('file'), fileController.saveFile);
+  // delete a file
+  router.delete('/file/:id', fileController.deleteFile);
+  // save a file
+  router.post('/file', upload.single('file'), fileController.saveFile);
 };
 
 export default index;

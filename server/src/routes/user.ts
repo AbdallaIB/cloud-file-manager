@@ -3,9 +3,12 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 
 const index = (router: Router, userController: UserController) => {
+  // get a user
   router.get('/user/:id', userController.getUser);
-  router.post('/user/login', userController.loginUser);
-  router.post('/user/register', userController.registerUser);
+  // login a user
+  router.post('/login', userController.loginUser);
+  // register a user
+  router.post('/register', userController.registerUser);
 };
 
 export default index;
