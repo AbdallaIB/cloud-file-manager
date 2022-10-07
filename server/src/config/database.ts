@@ -1,6 +1,10 @@
+import * as path from 'path';
 import * as pg from 'pg';
 import process = require('process');
 const Pool = pg.Pool;
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: path.resolve('.env') });
 
 const pool = new Pool({
   user: process.env.POSTGRESS_USER,

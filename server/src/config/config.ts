@@ -1,8 +1,11 @@
+import { connectToDatabase } from '@config/database';
 import * as path from 'path';
-
-const dotenv = require('dotenv');
+import * as dotenv from 'dotenv';
 
 dotenv.config({ path: path.resolve('.env') });
+
+// init database
+connectToDatabase();
 
 // load configurations
 // set the node environment variable if not set before

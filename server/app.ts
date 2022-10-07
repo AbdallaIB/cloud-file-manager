@@ -8,10 +8,6 @@ import * as fs from 'fs';
 import * as https from 'https';
 import * as http from 'http';
 import '@config/config';
-import { connectToDatabase } from '@config/database';
-
-// init database
-connectToDatabase();
 
 app.use(express.static(__dirname, { dotfiles: 'allow' }));
 
