@@ -14,7 +14,8 @@
       "@models/*": ["../models/*"],
       "@config/*": ["src/config/*"],
       "@controllers/*": ["src/controllers/*"],
-      "@thirdParty/*": ["src/thirdParty/*"]
+      "@thirdParty/*": ["src/thirdParty/*"],
+      "@middlewares/*": ["src/middlewares/*"]
     }
   },
   "include": ["src/**/*.ts", "app.ts"],
