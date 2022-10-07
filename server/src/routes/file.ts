@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { Router } from 'express';
 import { FileController } from '@controllers/file';
+import { validateToken } from 'src/middlewares/auth';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -33,11 +34,11 @@ const upload = multer({ storage });
 
 const index = (router: Router, fileController: FileController) => {
   // get a file
-  router.get('/file/:id', fileController.getFile);
+  router.get('/file/:id', validateToken, fileController.getFile);
   // delete a file
-  router.delete('/file/:id', fileController.deleteFile);
+  router.delete('/file/:id', validateToken, fileController.deleteFile);
   // save a file
-  router.post('/file', upload.single('file'), fileController.saveFile);
+  router.post('/file', validateToken, upload.single('file'), fileController.saveFile);
 };
 
 export default index;

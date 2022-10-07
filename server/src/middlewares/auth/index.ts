@@ -5,6 +5,13 @@ const logger = loggerHandler(moduleName);
 import { verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
+type User = {
+  id: number;
+  username: string;
+};
+
+export type RequestWithUser = Request & { user: User };
+
 export const validateToken = async (req: Request, res: Response, next: NextFunction) => {
   const bearerToken = getToken(req);
 
