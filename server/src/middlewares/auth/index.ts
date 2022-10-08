@@ -5,8 +5,8 @@ const logger = loggerHandler(moduleName);
 import { verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
-type User = {
-  id: number;
+export type User = {
+  uId: number;
   username: string;
 };
 
