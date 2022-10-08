@@ -18,5 +18,5 @@
     "jsx": "react-jsx",
     "baseUrl": "src"
   },
-  "include": ["src", "./tsconfig-base.json"]
+  "include": ["src", "./tsconfig.json"]
 }
