@@ -1,11 +1,17 @@
-import { Routes } from 'react-router-dom';
+import Header from '@components/header';
+import Sidebar from '@components/sidebar';
+import Routes from '@routes/Routes';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [showSidebar, setShowSidebar] = useState(true);
   return (
-    <div className="mainContainer">
-      <div>test</div>
-      <Routes></Routes>
+    <div className="mainContainer bg-gray-50">
+      {/* <div>test</div> */}
+      <Sidebar></Sidebar>
+      <Header></Header>
+      {/* <Routes /> */}
     </div>
   );
 }
