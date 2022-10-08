@@ -10,8 +10,10 @@ function App() {
     <div className="mainContainer bg-gray-50">
       {/* <div>test</div> */}
       <Sidebar></Sidebar>
-      <Header></Header>
-      {/* <Routes /> */}
+      <div className="flex h-full flex-col w-full">
+        <Header></Header>
+        <Routes />
+      </div>
     </div>
   );
 }
