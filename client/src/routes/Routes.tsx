@@ -7,9 +7,11 @@ import Dashboard from '@pages/Dashboard/Dashboard';
 import Page404 from '@pages/Page404/Page404';
 import Login from '@pages/Login/Login';
 import Storage from '@pages/Storage/Storage';
-import Profile from '@pages/Profile/Profile';
 import SignUp from '@pages/SignUp/SignUp';
 import ForgotPassword from '@pages/ForgotPassword/ForgotPassword';
+import Home from '@pages/Files/Files';
+import Settings from '@pages/Settings/Settings';
+import Files from '@pages/Files/Files';
 
 export enum RouteType {
   PUBLIC,
@@ -28,7 +30,7 @@ export const AppRoutes: AppRoute[] = [
   //   },
   // Private Routes
   {
-    type: RouteType.PRIVATE,
+    type: RouteType.PUBLIC,
     path: 'dashboard',
     children: <Dashboard />,
   },
@@ -40,7 +42,7 @@ export const AppRoutes: AppRoute[] = [
   {
     type: RouteType.PRIVATE,
     path: 'profile',
-    children: <Profile />,
+    children: <Settings />,
   },
   // Public Routes
   {
@@ -57,6 +59,11 @@ export const AppRoutes: AppRoute[] = [
     type: RouteType.PUBLIC,
     path: 'login',
     children: <Login />,
+  },
+  {
+    type: RouteType.PUBLIC,
+    path: 'files',
+    children: <Files />,
   },
 ];
 

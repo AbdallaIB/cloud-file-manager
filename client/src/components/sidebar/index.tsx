@@ -27,15 +27,15 @@ const Sidebar = () => {
             )}
           </Link>
           <Link
-            to="/storage"
+            to="/files"
             className="flex items-center rounded-lg hover:bg-gray-50 px-4 py-2 text-gray-700 group relative"
           >
             <i className="bx bx-file opacity-75 text-xl"></i>
             {showSidebar ? (
-              <span className="ml-3 text-sm font-medium"> Storage </span>
+              <span className="ml-3 text-sm font-medium"> Files </span>
             ) : (
               <span className="absolute left-full top-1/2 ml-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100">
-                Storage
+                Files
               </span>
             )}
           </Link>
