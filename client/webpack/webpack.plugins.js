@@ -15,5 +15,8 @@ module.exports = [
     filename: '[name].[chunkhash].css',
     chunkFilename: '[name].[chunkhash].chunk.css',
   }),
-  new webpack.EnvironmentPlugin(['SOCKET_ENDPOINT']),
+  new webpack.ProvidePlugin({
+    process: 'process/browser',
+  }),
+  new webpack.EnvironmentPlugin(['SOCKET_ENDPOINT', 'BASE_API_URL']),
 ];
