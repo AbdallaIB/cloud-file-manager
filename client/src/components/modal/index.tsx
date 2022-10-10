@@ -1,15 +1,17 @@
 import './index.css';
 import Modal from 'react-modal';
-import Dropzone from '@components/dropzone';
-import { useCallback, useState } from 'react';
+import { ReactNode } from 'react';
+import Button from '@components/shared/Button';
 
 export interface Props {
-  showCloseButton?: boolean;
-  confirmationData: {
-    isOpen: boolean;
-    onConfirm: () => void;
-    onCancel: () => void;
-  };
+  title: string;
+  isOpen: boolean;
+  children?: ReactNode;
+  confirmText: string;
+  styles: { content: { height: string; width: string } };
+  hasFooter: boolean;
+  cancel: () => void;
+  confirm: () => void;
 }
 
 const customStyles = {
@@ -23,29 +25,33 @@ const customStyles = {
   },
 };
 
-const Modals = ({ confirmationData }: Props) => {
-  const [images, setImages] = useState([]);
-
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.map((file: File) => {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        // setImages((prevState) => [...prevState, { id: cuid(), src: e.target.result }]);
-      };
-      reader.readAsDataURL(file);
-      return file;
-    });
-  }, []);
-
+const Modals = ({ title, isOpen, children, cancel, confirm, confirmText, styles, hasFooter = true }: Props) => {
   return (
     <Modal
+      style={{ content: { ...customStyles.content, ...styles.content } }}
       ariaHideApp={false}
-      style={customStyles}
-      contentLabel="Example Modal"
-      isOpen={confirmationData.isOpen}
+      contentLabel={title}
+      isOpen={isOpen}
       //   toggle={() => cancel()}
     >
-      <Dropzone onDrop={onDrop} open={() => {}} />
+      <header className="header">
+        <h2 className="font-medium"> {title} </h2>
+        <button className="h-full text-2xl" onClick={() => cancel()}>
+          <i className="bx bx-x"></i>
+        </button>
+      </header>
+      <main
+        className={'flex flex-col items-center justify-center w-full'}
+        style={{ borderBottom: hasFooter ? '1px solid #dddddd' : '', height: '85%' }}
+      >
+        {children}
+      </main>
+      {hasFooter && (
+        <footer className="footer">
+          <Button text="Cancel" onClick={() => cancel()} color="gray"></Button>
+          <Button text={confirmText} onClick={() => confirm()} isPrimary></Button>
+        </footer>
+      )}
     </Modal>
   );
 };
