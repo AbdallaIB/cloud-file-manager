@@ -14,23 +14,53 @@ import { RequestWithUser } from '@middlewares/auth';
 export class FileController {
   public async saveFile(req: RequestWithUser, res: Response) {
     logger.info('[saveFile][body]', req.body);
-    const { id } = req.user;
-    const { file, body } = req;
-    const { name } = body;
-    const { mimetype, size, filename } = file;
-    const filePath = path.resolve(__dirname, `../../uploads/${filename}`);
-
-    const extension = path.extname(filename).toLowerCase();
-    const mediaType = getMediaType(extension);
-
+    const { uId } = req.user;
+    const { body } = req;
+    const { files } = body;
+    const data = [];
     try {
-      const upload = (await uploadMedia(id + '/' + filename, mimetype, filePath, res)) as ManagedUpload.SendData;
-      const query = `INSERT INTO files (name, size, extension, type, url, owner_id) VALUES ($1, $2, $3, $4, $5, $6)`;
-      const params = [name, filesize(size), extension, mediaType, upload.Location, '1'];
-      await db.query(query, params);
-      res.status(statusCodes.OK).json({ message: 'File uploaded successfully!' });
+      for (const file of files) {
+        const { mimetype, size, filename } = file;
+        const filePath = path.resolve(__dirname, `../../uploads/${filename}`);
+
+        const extension = path.extname(filename).toLowerCase();
+        const mediaType = getMediaType(extension);
+        const fileSize = filesize(size);
+
+        const upload = (await uploadMedia(uId + '/' + filename, mimetype, filePath, res)) as ManagedUpload.SendData;
+        const query = `INSERT INTO files (name, size, extension, type, url, owner_id) VALUES ($1, $2, $3, $4, $5, $6)`;
+        const params = [filename, fileSize, extension, mediaType, upload.Location, uId];
+        await db.query(query, params);
+        data.push({
+          id: Math.random(),
+          name: filename,
+          url: upload.Location,
+          created_at: new Date().toISOString(),
+          size: fileSize,
+          type: mediaType,
+        });
+        console.log('uploading...');
+      }
+      console.log('done');
+      res.status(statusCodes.OK).json({ message: 'Files uploaded successfully!', data });
     } catch (error) {
       logger.error('[saveFile][err]', error);
+      res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    }
+  }
+
+  public async getUserFiles(req: RequestWithUser, res: Response) {
+    logger.info('[getUserFiles][params]');
+    const { uId } = req.user;
+    const query = `SELECT id, name, created_at, size, type, url FROM files WHERE owner_id = $1`;
+    const params = [uId];
+    try {
+      const result = await db.query(query, params);
+      console.log(result.rows);
+      result.rows[0].url = await getSignedUrl(result.rows[0].url);
+      res.status(statusCodes.OK).json({ message: 'File found!', data: result.rows });
+    } catch (error) {
+      logger.error('[getUserFiles][err]', error);
       res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error });
     }
   }
@@ -43,7 +73,7 @@ export class FileController {
     try {
       const result = await db.query(query, params);
       result.rows[0].url = await getSignedUrl(result.rows[0].url);
-      res.status(statusCodes.OK).json({ message: 'File found!', result: result.rows[0] });
+      res.status(statusCodes.OK).json({ message: 'File found!', data: result.rows[0] });
     } catch (error) {
       logger.error('[getFile][err]', error);
       res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error });
