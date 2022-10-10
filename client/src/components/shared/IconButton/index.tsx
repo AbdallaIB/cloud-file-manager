@@ -10,7 +10,7 @@ const IconButton = ({ iconClass, children, onClick, type = 'button', ...rest }: 
     <button
       type={type}
       onClick={onClick}
-      className="block shrink-0 rounded bg-white p-1 text-gray-600 shadow-sm hover:text-gray-700"
+      className="block shrink-0 rounded bg-white hover:bg-gray-200 p-1 text-gray-600 shadow-sm hover:text-gray-700"
       {...rest}
     >
       <i className={iconClass + ' text-xl'}></i>
