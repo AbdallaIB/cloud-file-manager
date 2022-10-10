@@ -25,7 +25,6 @@
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
     "@hot-loader/react-dom": "^17.0.2",
-    "@rajesh896/video-thumbnails-generator": "^2.3.9",
     "axios": "^0.26.1",
     "mobx": "^6.5.0",
     "mobx-react": "^7.3.0",
