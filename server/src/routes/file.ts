@@ -1,5 +1,4 @@
 import { body, param } from 'express-validator';
-import * as path from 'path';
 import { Router } from 'express';
 import { FileController } from '@controllers/file';
 import { validateToken } from '@middlewares/auth';
@@ -19,8 +18,8 @@ const index = (router: Router, fileController: FileController) => {
   );
   // delete a file
   router.delete(
-    '/file/:folderId/:parentFolderId',
-    [param('id').isEmpty().withMessage('File id missing')],
+    '/file',
+    [body('files').exists({ checkFalsy: true }).withMessage('File id missing')],
     validateRequest,
     validateToken,
     fileController.deleteFile,
