@@ -18,7 +18,7 @@ const getKey = (url: string) => {
   return pathname.substring(1);
 };
 
-export const getSignedUrl = async (url: string) => {
+export const getSignedUrl = (url: string) => {
   const params = {
     Bucket: process.env.BUCKET_NAME,
     Key: getKey(url), // filename
@@ -54,59 +54,23 @@ export const uploadMedia = async (key: string, mimetype: string, path: string, r
   }
 };
 
-export const uploadFolder = async (key: string, res: Response) => {
-  logger.info('[uploadFolder]', key);
+export const deleteMedia = async (key: string, res: Response) => {
+  logger.info('[deleteMedia]', key);
   try {
-    let Expires = new Date(
-      new Date().setSeconds(new Date().getSeconds() + parseInt(process.env.AWS_SIGNED_EXPIRE_TIME_SEC)),
-    );
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: key, // File name you want to save as in S3
-      Expires, // time to expire in seconds
     };
+
+    // Check if file exists in bucket
+    await s3.headObject(params).promise();
+
     // Uploading files to the bucket
-    return await s3.putObject(params).promise();
+    return await s3.deleteObject(params).promise();
   } catch (e) {
-    logger.error('[uploadFolder][]', e.message);
+    logger.error('[deleteMedia][]', e.message);
     return res.status(statusCodes.BAD_REQUEST).json({
       message: 'File not found. Please try again.',
     });
   }
-};
-
-export const deleteFolder = async (userId: string, key: string, res: Response) => {
-  return new Promise((resolve, reject) => {
-    // get all keys and delete objects
-    const getAndDelete = (ct: string = null) => {
-      s3.listObjectsV2({
-        Bucket: key,
-        MaxKeys: 1000,
-        ContinuationToken: ct,
-        Prefix: userId + '/',
-        Delimiter: '',
-      })
-        .promise()
-        .then(async (data) => {
-          // params for delete operation
-          let params = {
-            Bucket: key,
-            Delete: { Objects: [] },
-          };
-          // add keys to Delete Object
-          data.Contents.forEach((content) => {
-            params.Delete.Objects.push({ Key: content.Key });
-          });
-          // delete all keys
-          await s3.deleteObjects(params).promise();
-          // check if ct is present
-          if (data.NextContinuationToken) getAndDelete(data.NextContinuationToken);
-          else resolve(true);
-        })
-        .catch((err) => reject(err));
-    };
-
-    // init call
-    getAndDelete();
-  });
 };
