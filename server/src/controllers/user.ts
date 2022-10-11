@@ -15,7 +15,7 @@ export class UserController {
     const params = [id];
     try {
       const result = await db.query(query, params);
-      return res.status(statusCodes.OK).json({ message: 'User found!', result: result.rows[0] });
+      return res.status(statusCodes.OK).json({ message: 'User found!', data: result.rows[0] });
     } catch (error) {
       logger.error('[getUser][err]', error);
       res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error });

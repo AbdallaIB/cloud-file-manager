@@ -11,23 +11,24 @@ const defaultRouter = (router: Router) => {
     return res.status(404).send('404 Not Found');
   };
 
-  router.get('/', function (req: Request, res: Response) {
+  router.get('/', (req: Request, res: Response) => {
     res.sendFile(path.resolve('public/index.html'));
   });
 
   // this must be the last line
   router
     .route('/*')
-    .get(function (req: Request, res: Response) {
+    .get((req: Request, res: Response) => {
       operationNotAllowed(res, 'GET');
     })
-    .post(function (req: Request, res: Response) {
+    .post((req: Request, res: Response) => {
       operationNotAllowed(res, 'POST');
     })
-    .delete(function (req: Request, res: Response) {
+    .delete((req: Request, res: Response) => {
+      console.log(req.url, req.query);
       operationNotAllowed(res, 'DELETE');
     })
-    .put(function (req: Request, res: Response) {
+    .put((req: Request, res: Response) => {
       operationNotAllowed(res, 'PUT');
     });
 };
