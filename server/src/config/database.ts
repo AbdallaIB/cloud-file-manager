@@ -1,24 +1,30 @@
+import { config } from '@config/config';
 import { Pool } from 'pg';
 import process = require('process');
+const moduleName = '[database]';
+import loggerHandler from '@utils/logger';
+const logger = loggerHandler(moduleName);
+
+console.log(config.pg_config);
 
 const pool = new Pool({
-  user: process.env.POSTGRESS_USER,
-  password: process.env.POSTGRESS_PASSWORD,
-  host: process.env.POSTGRESS_HOST,
-  port: Number(process.env.POSTGRESS_PORT),
-  database: process.env.POSTGRESS_DB,
-  ssl: process.env.POSTGRESS_SSL_MODE === 'true',
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000,
+  user: config.pg_config.user,
+  password: config.pg_config.password,
+  host: config.pg_config.host,
+  port: config.pg_config.port,
+  database: config.pg_config.database,
+  ssl: config.pg_config.ssl,
+  max: config.pg_config.max,
+  idleTimeoutMillis: config.pg_config.idleTimeoutMillis,
 });
 
 export const connectToDatabase = function () {
   pool.connect((err) => {
     if (err) throw err;
     else {
-      console.log('Connected to database');
+      logger.info('Connected to database');
       pool.on('error', (err) => {
-        console.error('Unexpected error', err);
+        logger.error('[connectToDatabase][err] Unexpected error', err);
         process.exit(-1);
       });
     }

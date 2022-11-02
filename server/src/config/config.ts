@@ -14,5 +14,6 @@ process.on('uncaughtException', function (err) {
 });
 
 // extend the base configuration in core.js with environment specific configuration
+export { core as config } from '@config/env/core';
 
 console.info(`_______________________________(${process.env.NODE_ENV} environment)_______________________________`);
