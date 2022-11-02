@@ -8,6 +8,8 @@ const pool = new Pool({
   port: Number(process.env.POSTGRESS_PORT),
   database: process.env.POSTGRESS_DB,
   ssl: process.env.POSTGRESS_SSL_MODE === 'true',
+  max: 10, // max number of clients in the pool
+  idleTimeoutMillis: 30000,
 });
 
 export const connectToDatabase = function () {
