@@ -1,11 +1,12 @@
 import { Navigate, RouteProps, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import authStore from '@lib/stores/auth.store';
+import useAuthStore from '@lib/stores/auth';
 
 const PrivateRoute = ({ children }: RouteProps) => {
   const location = useLocation();
+  const { getUser } = useAuthStore();
 
-  if (!authStore.isAuthenticated) {
+  if (!getUser()) {
     return <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname)}`} />;
   }
 

@@ -3,15 +3,14 @@ import { PathRouteProps, Routes as Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
 
-import Dashboard from '@pages/Dashboard/Dashboard';
+import Dashboard from '@pages/Dashboard';
 import Page404 from '@pages/Page404/Page404';
 import Login from '@pages/Login/Login';
-import Storage from '@pages/Storage/Storage';
 import SignUp from '@pages/SignUp/SignUp';
 import ForgotPassword from '@pages/ForgotPassword/ForgotPassword';
-import Home from '@pages/Files/Files';
+import Home from '@pages/Files';
 import Settings from '@pages/Settings/Settings';
-import Files from '@pages/Files/Files';
+import Files from '@pages/Files';
 
 export enum RouteType {
   PUBLIC,
@@ -22,22 +21,11 @@ interface AppRoute extends PathRouteProps {
   type?: RouteType;
 }
 export const AppRoutes: AppRoute[] = [
-  // Restricted Routes
-  //   {
-  //     type: RouteType.PRIVATE,
-  //     path: 'dashboard',
-  //     children: <Dashboard />,
-  //   },
   // Private Routes
   {
     type: RouteType.PUBLIC,
     path: 'dashboard',
     children: <Dashboard />,
-  },
-  {
-    type: RouteType.PRIVATE,
-    path: 'storage',
-    children: <Storage />,
   },
   {
     type: RouteType.PRIVATE,

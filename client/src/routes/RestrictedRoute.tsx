@@ -1,9 +1,11 @@
 import { RouteProps, Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import authStore from '@lib/stores/auth.store';
+import useAuthStore from '@lib/stores/auth';
 
 const RestrictedRoute = ({ children }: RouteProps) => {
-  if (authStore.isAuthenticated) {
+  const { getUser } = useAuthStore();
+
+  if (!getUser()) {
     return <Navigate to="/" />;
   }
   return children as JSX.Element;
