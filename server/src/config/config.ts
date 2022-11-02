@@ -1,8 +1,8 @@
-import { connectToDatabase } from '@config/database';
-import * as path from 'path';
+import { config } from 'dotenv';
+import { resolve } from 'path';
 
-// init database
-connectToDatabase();
+// load environment variables from .env file
+config({ path: resolve('.env') });
 
 // load configurations
 // set the node environment variable if not set before
