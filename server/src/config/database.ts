@@ -5,8 +5,6 @@ const moduleName = '[database]';
 import loggerHandler from '@utils/logger';
 const logger = loggerHandler(moduleName);
 
-console.log(config.pg_config);
-
 const pool = new Pool({
   user: config.pg_config.user,
   password: config.pg_config.password,
