@@ -1,13 +1,13 @@
-import * as pg from 'pg';
+import { Pool } from 'pg';
 import process = require('process');
-const Pool = pg.Pool;
 
 const pool = new Pool({
   user: process.env.POSTGRESS_USER,
   password: process.env.POSTGRESS_PASSWORD,
   host: process.env.POSTGRESS_HOST,
-  port: parseInt(process.env.POSTGRESS_PORT),
+  port: Number(process.env.POSTGRESS_PORT),
   database: process.env.POSTGRESS_DB,
+  ssl: process.env.POSTGRESS_SSL_MODE === 'true',
 });
 
 export const connectToDatabase = function () {
