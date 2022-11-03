@@ -18,5 +18,8 @@ module.exports = [
   new webpack.ProvidePlugin({
     process: 'process/browser',
   }),
+  new webpack.ProvidePlugin({
+    Buffer: ['buffer', 'Buffer'],
+  }),
   new webpack.EnvironmentPlugin(['SOCKET_ENDPOINT', 'BASE_API_URL']),
 ];
