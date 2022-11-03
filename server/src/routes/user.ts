@@ -2,7 +2,7 @@ import { UserController } from '@controllers/user';
 import { Router } from 'express';
 import { param } from 'express-validator';
 import { validateToken } from '@middlewares/auth';
-import { validateRequest } from '@middlewares/validator';
+import { validateRequest } from '@middlewares/validators/express-validator';
 
 const index = (router: Router, userController: UserController) => {
   // get a user
@@ -13,10 +13,6 @@ const index = (router: Router, userController: UserController) => {
     validateToken,
     userController.getUser,
   );
-  // login a user
-  router.post('/login', userController.loginUser);
-  // register a user
-  router.post('/register', userController.registerUser);
 };
 
 export default index;
