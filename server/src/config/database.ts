@@ -1,7 +1,7 @@
 import { config } from '@config/config';
 import { Pool } from 'pg';
 import process = require('process');
-const moduleName = '[database]';
+const moduleName = '[database] ';
 import loggerHandler from '@utils/logger';
 const logger = loggerHandler(moduleName);
 

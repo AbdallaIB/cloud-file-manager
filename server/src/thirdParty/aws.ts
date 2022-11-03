@@ -1,17 +1,18 @@
-import * as AWS from 'aws-sdk';
+import { S3, config as AwsConfig } from 'aws-sdk';
 const moduleName = '[s3]';
 import loggerHandler from '@utils/logger';
 const logger = loggerHandler(moduleName);
 import * as fs from 'fs';
 import { Response } from 'express';
 import { statusCodes } from '@utils/constants';
+import { config } from '@config/config';
 
-AWS.config.update({
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY,
+AwsConfig.update({
+  region: config.aws_config.region,
+  accessKeyId: config.aws_config.accessKey,
+  secretAccessKey: config.aws_config.secretAccessKey,
 });
-const s3 = new AWS.S3({ apiVersion: 'latest' });
+const s3 = new S3({ apiVersion: 'latest' });
 
 const getKey = (url: string) => {
   const { pathname } = new URL(url);
@@ -20,9 +21,9 @@ const getKey = (url: string) => {
 
 export const getSignedUrl = (url: string) => {
   const params = {
-    Bucket: process.env.BUCKET_NAME,
+    Bucket: config.aws_config.bucketName,
     Key: getKey(url), // filename
-    Expires: parseInt(process.env.AWS_SIGNED_EXPIRE_TIME_SEC), // time to expire in seconds
+    Expires: parseInt(config.aws_config.signedExpireTimeSec), // time to expire in seconds
   };
   return s3.getSignedUrl('getObject', params);
 };
@@ -35,10 +36,10 @@ export const uploadMedia = async (key: string, mimetype: string, path: string, r
     const encoded = Buffer.from(imageFile);
     // Setting up S3 upload parameters
     let Expires = new Date(
-      new Date().setSeconds(new Date().getSeconds() + parseInt(process.env.AWS_SIGNED_EXPIRE_TIME_SEC)),
+      new Date().setSeconds(new Date().getSeconds() + parseInt(config.aws_config.signedExpireTimeSec)),
     );
     const params = {
-      Bucket: process.env.BUCKET_NAME,
+      Bucket: config.aws_config.bucketName,
       Key: key, // File name you want to save as in S3
       Body: encoded,
       Expires, // time to expire in seconds
@@ -58,7 +59,7 @@ export const deleteMedia = async (key: string, res: Response) => {
   logger.info('[deleteMedia]', key);
   try {
     const params = {
-      Bucket: process.env.BUCKET_NAME,
+      Bucket: config.aws_config.bucketName,
       Key: key, // File name you want to save as in S3
     };
 

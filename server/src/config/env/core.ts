@@ -15,4 +15,14 @@ export const core = {
     max: 10, // max number of clients in the pool
     idleTimeoutMillis: 30000,
   },
+  aws_config: {
+    region: process.env.AWS_REGION,
+    accessKey: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+    bucketName: process.env.AWS_BUCKET_NAME,
+    signedExpireTimeSec: process.env.AWS_SIGNED_EXPIRE_TIME_SEC,
+    uploadExpireTimeSec: process.env.AWS_UPLOAD_EXPIRE_TIME_SEC,
+  },
+  TOKEN_EXPIRE_TIME_SEC: 15000000,
+  TOKEN_SECRET_KEY: process.env.TOKEN_SECRET_KEY,
 };

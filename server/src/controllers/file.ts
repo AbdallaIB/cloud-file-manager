@@ -6,7 +6,6 @@ import { Request, Response } from 'express';
 import { deleteMedia, getSignedUrl, uploadMedia } from '@thirdParty/aws';
 import * as path from 'path';
 import { statusCodes } from '@utils/constants';
-import { filesize } from 'filesize';
 import { ManagedUpload } from 'aws-sdk/clients/s3';
 import { deleteLocalCopy, getMediaType } from '@utils/utils';
 import { RequestWithUser } from '@middlewares/auth';
@@ -25,18 +24,17 @@ export class FileController {
 
         const extension = path.extname(filename).toLowerCase();
         const mediaType = getMediaType(extension);
-        const fileSize = filesize(size);
 
         const upload = (await uploadMedia(uId + '/' + filename, mimetype, filePath, res)) as ManagedUpload.SendData;
         const query = `INSERT INTO files (name, size, extension, type, url, owner_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
-        const params = [filename, fileSize, extension, mediaType, upload.Location, uId];
+        const params = [filename, size, extension, mediaType, upload.Location, uId];
         const result = await db.query(query, params);
         data.push({
           id: result.rows[0].id,
           name: filename,
           url: getSignedUrl(upload.Location),
           created_at: new Date().toISOString(),
-          size: fileSize,
+          size: size,
           type: mediaType,
         });
         console.log('uploading...');
