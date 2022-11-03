@@ -1,21 +1,37 @@
-import { MediaFile } from '@lib/context/FileContext';
+import { MediaFile } from '@lib/stores/file';
 
 export interface FileResponse {
   message: string;
   data: MediaFile[];
 }
 
+export interface IUser {
+  uId: string;
+  username: string;
+}
+
 export interface LoginInput {
-  email: string;
+  username: string;
   password: string;
 }
 
-export interface IUser {
-  id: number;
-  first_name: string;
-  last_name: string;
+export interface SignUpInput {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
-export interface UserDetailsResponse {
+export interface GenericResponse {
+  message: string;
+}
+
+export interface ILoginResponse {
   user: IUser;
+  accessToken: string;
+}
+
+export interface IUserResponse {
+  user: IUser;
+  accessToken: string;
 }

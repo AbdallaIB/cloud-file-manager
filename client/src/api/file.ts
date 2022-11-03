@@ -19,6 +19,9 @@ export const deleteFile = async (files: { id: number; name: string }[]) => {
     'file',
     {},
     { files },
-    getAuthHeaders(),
+    {
+      'content-type': 'multipart/form-data',
+      ...getAuthHeaders(),
+    },
   );
 };
