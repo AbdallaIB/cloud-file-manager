@@ -4,12 +4,9 @@ import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
 
 import Dashboard from '@pages/Dashboard';
-import Page404 from '@pages/Page404/Page404';
-import Login from '@pages/Login/Login';
-import SignUp from '@pages/SignUp/SignUp';
-import ForgotPassword from '@pages/ForgotPassword/ForgotPassword';
-import Home from '@pages/Files';
-import Settings from '@pages/Settings/Settings';
+import Page404 from '@pages/Page404';
+import Login from '@pages/Login';
+import SignUp from '@pages/Signup';
 import Files from '@pages/Files';
 
 export enum RouteType {
@@ -23,35 +20,25 @@ interface AppRoute extends PathRouteProps {
 export const AppRoutes: AppRoute[] = [
   // Private Routes
   {
-    type: RouteType.PUBLIC,
+    type: RouteType.PRIVATE,
     path: 'dashboard',
     children: <Dashboard />,
   },
   {
     type: RouteType.PRIVATE,
-    path: 'profile',
-    children: <Settings />,
+    path: '',
+    children: <Files />,
   },
   // Public Routes
   {
     type: RouteType.PUBLIC,
-    path: 'reset',
-    children: <ForgotPassword />,
-  },
-  {
-    type: RouteType.PUBLIC,
-    path: 'signUp',
+    path: 'signup',
     children: <SignUp />,
   },
   {
     type: RouteType.PUBLIC,
     path: 'login',
     children: <Login />,
-  },
-  {
-    type: RouteType.PUBLIC,
-    path: 'files',
-    children: <Files />,
   },
 ];
 
