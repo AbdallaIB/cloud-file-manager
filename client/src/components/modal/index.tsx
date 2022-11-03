@@ -1,7 +1,7 @@
 import './index.css';
 import Modal from 'react-modal';
 import { ReactNode } from 'react';
-import Button from '@components/shared/Button';
+import Button from '@components/shared/button';
 
 export interface Props {
   title: string;
