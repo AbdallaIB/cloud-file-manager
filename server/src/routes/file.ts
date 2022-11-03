@@ -2,8 +2,8 @@ import { body, param } from 'express-validator';
 import { Router } from 'express';
 import { FileController } from '@controllers/file';
 import { validateToken } from '@middlewares/auth';
-import { validateRequest } from '@middlewares/validator';
 import upload from '@utils/upload';
+import { validateRequest } from '@middlewares/validators/express-validator';
 
 const index = (router: Router, fileController: FileController) => {
   // get user files
