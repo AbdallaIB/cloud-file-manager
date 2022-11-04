@@ -1,4 +1,4 @@
-import Input from '@components/shared/input';
+import Input from '@components/shared/Input';
 import { loginSchema } from '@utils/schemas';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
