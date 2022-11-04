@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import { SignUpInput } from '@api/types';
 import { generateUsername } from 'unique-username-generator';
-import Button from '@components/shared/button';
+import Button from '@components/shared/Button';
 
 interface Props {
   onSignUp: (values: SignUpInput) => void;

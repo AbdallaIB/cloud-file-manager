@@ -1,4 +1,4 @@
-import IconButton from '@components/shared/icon-button';
+import IconButton from '@components/shared/IconButton';
 import useToast from '@lib/hooks/useToast';
 import useAuthStore from '@lib/stores/auth';
 import { Link, useNavigate } from 'react-router-dom';
