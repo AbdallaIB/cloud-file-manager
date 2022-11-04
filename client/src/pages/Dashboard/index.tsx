@@ -1,7 +1,9 @@
+import { getUserFiles } from '@api/file';
 import FileActivityCard from '@components/dashboard/FileActivityCard';
 import FileTypesCard from '@components/dashboard/FileTypesCard';
-import LineChart from '@components/dashboard/LineChart';
+import LineChart from '@components/dashboard/FilesUploadedChart';
 import StorageUsedCard from '@components/dashboard/StorageUsedCard';
+import useToast from '@lib/hooks/useToast';
 import useFileStore from '@lib/stores/file';
 import {
   calculateFileActivityInLastWeek,
@@ -10,6 +12,7 @@ import {
   getFileTypesCounts,
 } from '@utils/dashboardHelpers';
 import { useEffect, useState } from 'react';
+import FilesUploadedChart from '@components/dashboard/FilesUploadedChart';
 
 export type FileTypesCounts = {
   images: number;
@@ -29,7 +32,8 @@ export type FileActivityData = {
 };
 
 const Dashboard = () => {
-  const { mediaFiles } = useFileStore();
+  const { appendFiles, setIsFilesFetched, isFilesFetched, mediaFiles } = useFileStore();
+  const { errorMessage } = useToast();
   const chartData = getFilesUploadedChartData(mediaFiles);
   const [fileTypesCounts, setFileTypesCounts] = useState<FileTypesCounts>({
     images: 0,
@@ -46,6 +50,16 @@ const Dashboard = () => {
     storageUsedChange: 0,
   });
 
+  const fetchData = async () => {
+    try {
+      const res = await getUserFiles();
+      appendFiles(res.data);
+      setIsFilesFetched();
+    } catch (err) {
+      errorMessage(err);
+    }
+  };
+
   useEffect(() => {
     const fileTypesCounts = getFileTypesCounts(mediaFiles);
     setFileTypesCounts(fileTypesCounts);
@@ -56,89 +70,21 @@ const Dashboard = () => {
     return () => {};
   }, [mediaFiles]);
 
-  const chartData1 = {
-    labels: [
-      '12-01-2020',
-      '01-01-2021',
-      '02-01-2021',
-      '03-01-2021',
-      '04-01-2021',
-      '05-01-2021',
-      '06-01-2021',
-      '07-01-2021',
-      '08-01-2021',
-      '09-01-2021',
-      '10-01-2021',
-      '11-01-2021',
-      '12-01-2021',
-      '01-01-2022',
-      '02-01-2022',
-      '03-01-2022',
-      '04-01-2022',
-      '05-01-2022',
-      '06-01-2022',
-      '07-01-2022',
-      '08-01-2022',
-      '09-01-2022',
-      '10-01-2022',
-      '11-01-2022',
-      '12-01-2022',
-      '01-01-2023',
-    ],
-    datasets: [
-      // Indigo line
-      {
-        data: [
-          732, 610, 610, 504, 504, 504, 349, 349, 504, 342, 504, 610, 391, 192, 154, 273, 191, 191, 126, 263, 349, 252,
-          423, 622, 470, 532,
-        ],
-        fill: true,
-        backgroundColor: 'transparent',
-        borderColor: 'red',
-        borderWidth: 2,
-        tension: 0,
-        pointRadius: 0,
-        pointHoverRadius: 3,
-        pointBackgroundColor: 'red',
-        clip: 20,
-      },
-      // Gray line
-      {
-        data: [
-          532, 532, 532, 404, 404, 314, 314, 314, 314, 314, 234, 314, 234, 234, 314, 314, 314, 388, 314, 202, 202, 202,
-          202, 314, 720, 642,
-        ],
-        borderColor: 'red',
-        borderWidth: 2,
-        tension: 0,
-        pointRadius: 0,
-        pointHoverRadius: 3,
-        pointBackgroundColor: 'red',
-        clip: 20,
-      },
-    ],
-  };
-
-  // cards:
-  // 1) Total file size / arbitrary limit
-  // 2) count of media files by type
-  // 3) change in number of files in last 7 days - Last 7 days
-
-  // chart:
+  useEffect(() => {
+    if (!isFilesFetched) fetchData();
+  }, []);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 mt-4">
       <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Dashboard</h1>
-      <div className="grid grid-flow-col gap-4 w-full mt-8">
+      <div className="grid grid-flow-col gap-4 w-full mt-6">
         <StorageUsedCard {...storageUsedData}></StorageUsedCard>
         <FileTypesCard {...fileTypesCounts}></FileTypesCard>
         <FileActivityCard {...fileActivityData}></FileActivityCard>
       </div>
       <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200 mt-6">
-        <LineChart data={chartData} width={389} height={300} />
+        <FilesUploadedChart data={chartData} />
       </div>
-
-      {/* <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Welcome Back, Barry!</h1> */}
     </div>
   );
 };

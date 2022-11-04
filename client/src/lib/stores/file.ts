@@ -13,12 +13,16 @@ export type MediaFile = {
 
 type FileStore = {
   mediaFiles: MediaFile[];
+  isFilesFetched: boolean;
+  setIsFilesFetched: () => void;
   removeFiles: (files: number[]) => void;
   appendFiles: (files: MediaFile[]) => void;
 };
 
 const useFileStore = create<FileStore>((set, get) => ({
   mediaFiles: [],
+  isFilesFetched: false,
+  setIsFilesFetched: () => set({ isFilesFetched: true }),
   removeFiles: (files: number[]) => {
     set((store) => ({
       ...store,
@@ -32,10 +36,12 @@ const useFileStore = create<FileStore>((set, get) => ({
         formattedSize: formatBytes(file.size),
       };
     });
-    console.log(files);
+    const getUniqueFiles = (files: MediaFile[]) => {
+      return [...new Map(files.map((file) => [file['id'], file])).values()];
+    };
     set((store) => ({
       ...store,
-      mediaFiles: [...store.mediaFiles, ...files],
+      mediaFiles: getUniqueFiles([...store.mediaFiles, ...files]),
     }));
   },
 }));

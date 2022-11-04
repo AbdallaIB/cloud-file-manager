@@ -24,19 +24,20 @@ const Files = () => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const { appendFiles } = useFileStore();
+  const { appendFiles, setIsFilesFetched, isFilesFetched } = useFileStore();
 
   const fetchData = async () => {
     try {
       const res = await getUserFiles();
       appendFiles(res.data);
+      setIsFilesFetched();
     } catch (err) {
       errorMessage(err);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    if (!isFilesFetched) fetchData();
   }, []);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -61,22 +62,19 @@ const Files = () => {
       formData.append('uploadedFiles', file.file);
     });
     try {
-      const re3s: any = promise(uploadFiles(formData), {
+      const uploadPromise = uploadFiles(formData);
+      promise(uploadPromise, {
         loading: 'Uploading files...',
         success: 'Files uploaded!',
         error: 'Failed to upload files',
       });
-      //   const res = (promise(uploadFiles(formData), {
-      //     loading: 'Uploading files...',
-      //     success: 'Files uploaded!',
-      //     error: 'Failed to upload files',
-      //   })) as FileResponse;
+      const res = await uploadPromise;
       setTimeout(() => {
         setUploadedFiles([]);
-        appendFiles(re3s.data);
+        appendFiles(res.data);
         setIsModalOpen(false);
       }, 3000);
-      console.log(re3s);
+      console.log(res);
     } catch (err) {
       errorMessage(err);
     }

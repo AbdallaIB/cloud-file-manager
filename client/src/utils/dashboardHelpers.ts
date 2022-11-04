@@ -1,12 +1,13 @@
 import { formatBytes } from '@utils/index';
 import { MediaFile } from '@lib/stores/file';
 import { FileTypesCounts, StorageUsedData } from '@pages/Dashboard';
+import { ChartData } from 'chart.js';
 
-const maxStorage = 1000000000; // 1GB
+const tenMegaBytesInBytes = 10485760;
 
 export const calculateStorageUsed = (files: MediaFile[]): StorageUsedData => {
   const totalFilesSize = files.reduce((acc, file) => acc + file.size, 0);
-  const storageUsedPercentage = (totalFilesSize / maxStorage) * 100;
+  const storageUsedPercentage = Math.floor((totalFilesSize / tenMegaBytesInBytes) * 100);
   const storageUsedSize = formatBytes(totalFilesSize);
   return { storageUsedSize, storageUsedPercentage };
 };
@@ -52,7 +53,7 @@ export const calculateFileActivityInLastWeek = (files: MediaFile[]) => {
   return { filesUploadedChange, storageUsedChange };
 };
 
-export const getFilesUploadedChartData = (files: MediaFile[]) => {
+export const getFilesUploadedChartData = (files: MediaFile[]): ChartData<'bar', any, unknown> => {
   const filesUploadedChartData = {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     datasets: [

@@ -9,7 +9,7 @@ const StorageUsedCard = ({ storageUsedPercentage, storageUsedSize }: StorageUsed
           <i className="bx bx-hdd text-2xl"></i>
         </header>
         <div className="font-semibold text-slate-400 uppercase text-lg">{storageUsedPercentage} %</div>
-        <div className="text-md font-semibold text-slate-800">{storageUsedSize} used / 1 GB available</div>
+        <div className="text-md font-semibold text-slate-800">{storageUsedSize} used / 10 MB available</div>
         <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
           <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: storageUsedPercentage }}></div>
         </div>
