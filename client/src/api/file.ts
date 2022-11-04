@@ -10,7 +10,10 @@ export const getUserFiles = async () => {
 };
 
 export const uploadFiles = async (file: FormData) => {
-  return await apiRequest<FormData, FileResponse>('post', 'file', {}, file, getAuthHeaders());
+  return await apiRequest<FormData, FileResponse>('post', 'file', {}, file, {
+    'content-type': 'multipart/form-data',
+    ...getAuthHeaders(),
+  });
 };
 
 export const deleteFile = async (files: { id: number; name: string }[]) => {
@@ -19,9 +22,6 @@ export const deleteFile = async (files: { id: number; name: string }[]) => {
     'file',
     {},
     { files },
-    {
-      'content-type': 'multipart/form-data',
-      ...getAuthHeaders(),
-    },
+    getAuthHeaders(),
   );
 };

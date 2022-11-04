@@ -40,8 +40,8 @@ const FileTable = ({
       return { id: file.id, checked: false, name: file.name };
     });
     setSelectedFiles(newFiles);
-    console.log(selectedFiles);
-  }, []);
+    console.log(newFiles);
+  }, [mediaFiles]);
 
   const getFileHeader = (file: MediaFile): string => {
     return file.name + ' - ' + timeSinceDate(file.created_at) + ' - ' + file.size;
@@ -62,9 +62,9 @@ const FileTable = ({
       .map((file) => {
         return { id: file.id, name: file.name };
       });
-
+    console.log(filesToDelete);
     try {
-      await promise(deleteFile(filesToDelete), {
+      promise(deleteFile(filesToDelete), {
         loading: 'Deleting files...',
         success: 'Files deleted!',
         error: 'Failed to delete files',
