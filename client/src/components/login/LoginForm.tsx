@@ -1,5 +1,5 @@
 import Input from '@components/shared/input';
-import { loginSchema } from '../../../../server/src/shared/schemas/user';
+import { loginSchema } from '@utils/schemas';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import { LoginInput } from '@api/types';
