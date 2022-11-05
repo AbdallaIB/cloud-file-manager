@@ -9,3 +9,10 @@ export const formatBytes = (bytes: number, decimals = 2) => {
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
+
+export const PageTitles = {
+  '/dashboard': 'Dashboard | File Manager',
+  '/': 'Files | File Manager',
+  '/login': 'Login | File Manager',
+  '/signup': 'Sign Up | File Manager',
+};
