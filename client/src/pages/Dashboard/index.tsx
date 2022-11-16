@@ -1,7 +1,6 @@
 import { getUserFiles } from '@api/file';
 import FileActivityCard from '@components/dashboard/FileActivityCard';
 import FileTypesCard from '@components/dashboard/FileTypesCard';
-import LineChart from '@components/dashboard/FilesUploadedChart';
 import StorageUsedCard from '@components/dashboard/StorageUsedCard';
 import useToast from '@lib/hooks/useToast';
 import useFileStore from '@lib/stores/file';
@@ -76,13 +75,13 @@ const Dashboard = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 mt-4">
-      <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-gray-700 dark:text-gray-200 sm:text-3xl">Dashboard</h1>
       <div className="grid grid-flow-col gap-4 w-full mt-6">
         <StorageUsedCard {...storageUsedData}></StorageUsedCard>
         <FileTypesCard {...fileTypesCounts}></FileTypesCard>
         <FileActivityCard {...fileActivityData}></FileActivityCard>
       </div>
-      <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200 mt-6">
+      <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border dark:border-0 border-slate-200 mt-6">
         <FilesUploadedChart data={chartData} />
       </div>
     </div>

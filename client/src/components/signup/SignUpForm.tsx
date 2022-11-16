@@ -32,7 +32,7 @@ const SignUpForm = ({ onSignUp }: Props) => {
       onSubmit={(e) => onSignUp(e)}
     >
       {({ values, errors, isSubmitting, handleChange, handleBlur, touched }) => (
-        <Form className="flex flex-col gap-4 w-[25vw]">
+        <Form className="flex flex-col gap-4 w-[25vw] dark:text-gray-200 text-gray-700">
           <div className="">
             <Input
               id="username"
@@ -95,16 +95,16 @@ const SignUpForm = ({ onSignUp }: Props) => {
             ></Button>
           </div>
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+            <p className="mt-4 text-sm sm:mt-0">
               Already have an account?
-              <Link to="/login" className="text-gray-700 underline ml-1">
+              <Link to="/login" className="underline ml-1">
                 Log in
               </Link>
               .
             </p>
           </div>
           <div className="flex justify-center">
-            <button type="button" onClick={handleUseDemoUser} className="text-gray-700 text-center text-sm underline">
+            <button type="button" onClick={handleUseDemoUser} className="text-center text-sm underline">
               Demo Account
             </button>
           </div>

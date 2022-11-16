@@ -81,30 +81,30 @@ const FileTable = ({
     <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 mt-4">
       {mediaFiles && mediaFiles.length > 0 ? (
         <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th className="inset-y-0 left-0 bg-gray-100 px-4 py-2 text-left">
+              <th className="inset-y-0 left-0 px-4 py-2 text-left">
                 <label className="sr-only" htmlFor="SelectAll">
                   Select All
                 </label>
 
                 <input
-                  className="h-5 w-5 rounded border-gray-200"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   type="checkbox"
                   id="SelectAll"
                   onChange={toggleAllSelectedFiles}
                 />
               </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-700 dark:text-gray-200">
                 <div className="flex items-center gap-2">Type</div>
               </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-700 dark:text-gray-200">
                 <div className="flex items-center gap-2">Name</div>
               </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-700 dark:text-gray-200">
                 <div className="flex items-center gap-2">Size</div>
               </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-700 dark:text-gray-200">
                 <div className="flex items-center gap-2">Date</div>
               </th>
               <th className="px-4 py-2"></th>
@@ -123,7 +123,7 @@ const FileTable = ({
 
                       {selectedFiles[index] && (
                         <input
-                          className="h-5 w-5 rounded border-gray-200"
+                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           type="checkbox"
                           id={file.id + 'file'}
                           name={file.name}
@@ -147,9 +147,11 @@ const FileTable = ({
                       )}
                       {file.type !== 'image' && <i className={fileIcons[file.type] + ' opacity-75'}></i>}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">{file.name}</td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">{file.formattedSize}</td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">{timeSinceDate(file.created_at)}</td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-900 dark:text-white">{file.name}</td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-900 dark:text-white">{file.formattedSize}</td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-900 dark:text-white">
+                      {timeSinceDate(file.created_at)}
+                    </td>
                     <td className="whitespace-nowrap px-4 py-2">
                       <button
                         onClick={() => {

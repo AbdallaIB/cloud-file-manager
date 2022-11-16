@@ -28,7 +28,7 @@ const DropDownMenu = ({ deleteFile }: Props) => {
         <div className="py-1" role="none">
           <button
             onClick={deleteFile}
-            className="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block px-4 py-2 text-sm"
+            className="text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 block px-4 py-2 text-sm"
             role="menuitem"
             id="menu-item-0"
           >

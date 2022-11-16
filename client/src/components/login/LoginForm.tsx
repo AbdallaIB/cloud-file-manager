@@ -19,7 +19,7 @@ const LoginForm = ({ onLogin }: Props) => {
   return (
     <Formik initialValues={{ username: '', password: '' }} validationSchema={loginSchema} onSubmit={(e) => onLogin(e)}>
       {({ values, errors, isSubmitting, handleChange, handleBlur, touched }) => (
-        <Form className="flex flex-col gap-6 w-[25vw]">
+        <Form className="flex flex-col gap-6 w-[25vw] dark:text-gray-200 text-gray-700">
           <div>
             <Input
               id="username"
@@ -50,15 +50,15 @@ const LoginForm = ({ onLogin }: Props) => {
             <Button classes="h-8 w-full" text={'Login'} disabled={isSubmitting} type="submit" isPrimary></Button>
           </div>
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+            <p className="mt-4 text-sm sm:mt-0">
               Not registered?
-              <Link to="/signup" className="text-gray-700 underline ml-1">
+              <Link to="/signup" className="underline ml-1">
                 Create Account
               </Link>
             </p>
           </div>
           <div className="flex justify-center">
-            <button type="button" onClick={handleUseDemoUser} className="text-gray-700 text-center text-sm underline">
+            <button type="button" onClick={handleUseDemoUser} className="text-center text-sm underline">
               Demo Account
             </button>
           </div>

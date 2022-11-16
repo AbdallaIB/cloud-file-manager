@@ -16,7 +16,7 @@ const Login = () => {
       success('Login successful');
       authenticate(user, accessToken);
       console.log(user, accessToken);
-      navigate('/');
+      navigate('/files');
     } catch (err: any) {
       errorMessage(err);
     }
@@ -24,9 +24,9 @@ const Login = () => {
 
   return (
     <section className="flex items-center justify-center h-full w-full relative">
-      <div className="items-center justify-center md:inset-0 overflow-x-hidden overflow-y-auto shadow z-50 rounded-2xl bg-white p-4">
+      <div className="items-center justify-center md:inset-0 overflow-x-hidden overflow-y-auto shadow z-50 rounded-2xl bg-gray-50 dark:bg-gray-700 p-4">
         <div className="relative p-4 w-full max-w-md h-full md:h-auto">
-          <div className="relative bg-white rounded-lg dark:bg-gray-700">
+          <div className="relative rounded-lg">
             <h1 className="text-center mb-4 font-semibold text-2xl">Login</h1>
             <LoginForm onLogin={handleLogin} />
           </div>

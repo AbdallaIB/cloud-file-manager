@@ -2,18 +2,18 @@ import { FileActivityData } from '@pages/Dashboard';
 
 const FileActivityCard = ({ filesUploadedChange, storageUsedChange }: FileActivityData) => {
   return (
-    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 border-solid dark:border-gray-700 shadow-lg rounded-sm border dark:border-0 border-slate-200">
       <div className="flex flex-col justify-center items-start gap-2 px-5 py-5 h-full">
-        <header className="flex flex-row justify-between items-center w-full border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-slate-800">Last 7 Days</h2>
+        <div className="flex flex-row justify-between items-center w-full border-b border-gray-200">
+          <h2 className="text-lg font-semibold">Last 7 Days</h2>
           <i className="bx bx-line-chart text-2xl"></i>
-        </header>
+        </div>
         <div className="flex flex-row justify-around items-center w-full h-full">
           <div
             className={
               'text-md font-semibold text-3xl flex flex-col items-center justify-start ' +
               (filesUploadedChange === 0
-                ? 'text-slate-800'
+                ? 'text-slate-700'
                 : filesUploadedChange > 0
                 ? 'text-green-500'
                 : 'text-red-500')
