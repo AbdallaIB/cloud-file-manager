@@ -1,8 +1,7 @@
-import { app } from './src/config/express';
+import { app } from '@config/express';
 const moduleName = '[app] ';
-import 'reflect-metadata';
 import * as express from 'express';
-import loggerHandler from './src/utils/logger';
+import loggerHandler from '@utils/logger';
 const logger = loggerHandler(moduleName);
 import * as fs from 'fs';
 import * as https from 'https';

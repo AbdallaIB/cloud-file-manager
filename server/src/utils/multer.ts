@@ -2,6 +2,8 @@ import * as multer from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
 
+const oneMegaByteInBytes = 1048576;
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     /// check if uploads folder exists
@@ -29,17 +31,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fieldSize: 10 * 1024 * 1024 },
-  //   fileFilter: (req, file, cb) => {
-  //     if (file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg') {
-  //       cb(null, true);
-  //     } else {
-  //       cb(null, false);
-  //       const err = new Error('Only .png, .jpg and .jpeg format allowed!');
-  //       err.name = 'ExtensionError';
-  //       return cb(err);
-  //     }
-  //   },
+  limits: {
+    fieldNameSize: 300,
+    fileSize: oneMegaByteInBytes, // 10 Mb
+  },
+  fileFilter: (req, file, callback) => {
+    const fileSize = parseInt(req.headers['content-length']);
+    if (fileSize > oneMegaByteInBytes) {
+      return callback(new Error('Total file sizes must be less than 10 Mb.'));
+    }
+    callback(null, true);
+  },
 }).array('uploadedFiles', 5);
 
 export default upload;
