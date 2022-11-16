@@ -1,7 +1,7 @@
 import { getUserFiles, uploadFiles } from '@api/file';
 import Dropzone from '@components/files/Dropzone';
 import FileTable from '@components/files/FileTable';
-import ImageGrid from '@components/files/ImageGrid';
+import FileGrid from '@components/files/FileGrid';
 import Modal from '@components/modal';
 import Button from '@components/shared/Button';
 import IconButton from '@components/shared/IconButton';
@@ -9,6 +9,7 @@ import useModal from '@lib/hooks/useModal';
 import useToast from '@lib/hooks/useToast';
 import useFileStore from '@lib/stores/file';
 import { useCallback, useEffect, useState } from 'react';
+import { getMediaType } from '@utils/index';
 
 export interface UploadedFile {
   id: string;
@@ -16,11 +17,14 @@ export interface UploadedFile {
   src: string | ArrayBuffer;
   size: number;
   file: File;
+  type: 'image' | 'video' | 'audio' | 'document';
 }
+
+const tenMegaBytesInBytes = 10485760;
 
 const Files = () => {
   const { isModalOpen, setIsModalOpen } = useModal();
-  const { errorMessage, promise } = useToast();
+  const { errorMessage, promise, error } = useToast();
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -46,9 +50,21 @@ const Files = () => {
       reader.onload = async function (e) {
         if (!e.target || !e.target.result) return;
         const result = e.target.result;
+        if (file.size > tenMegaBytesInBytes) {
+          error('File size cannot be greater than 10MB.');
+          console.log('File size cannot be greater than 10MB.');
+          return;
+        }
         setUploadedFiles((prevState: UploadedFile[]) => [
           ...prevState,
-          { id: Math.random().toString(), src: result, name: file.name, size: file.size, file },
+          {
+            id: Math.random().toString(),
+            src: result,
+            name: file.name,
+            size: file.size,
+            file,
+            type: getMediaType('.' + file.type.split('/')[1]),
+          },
         ]);
       };
       reader.readAsDataURL(file);
@@ -69,11 +85,9 @@ const Files = () => {
         error: 'Failed to upload files',
       });
       const res = await uploadPromise;
-      setTimeout(() => {
-        setUploadedFiles([]);
-        appendFiles(res.data);
-        setIsModalOpen(false);
-      }, 3000);
+      setUploadedFiles([]);
+      appendFiles(res.data);
+      setIsModalOpen(false);
       console.log(res);
     } catch (err) {
       errorMessage(err);
@@ -81,9 +95,9 @@ const Files = () => {
   };
 
   return (
-    <div className="flex flex-col px-4 sm:px-6 lg:px-8 mt-4">
-      <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Files</h1>
-      <div className="flex flex-row w-full justify-between mt-12">
+    <div className="flex flex-col px-4 sm:px-6 lg:px-8 mt-12">
+      <h1 className="text-2xl font-bold text-gray-700 dark:text-gray-200 sm:text-3xl">Files</h1>
+      <div className="flex flex-row w-full justify-between mt-6">
         <div className="flex flex-row gap-3">
           <Button text="Upload" iconClass="bx bx-upload" onClick={() => setIsModalOpen(true)} isPrimary={true}></Button>
         </div>
@@ -112,7 +126,7 @@ const Files = () => {
         confirmText="Upload"
       >
         <Dropzone onDrop={onDrop} open={() => {}} />
-        <ImageGrid mediaFiles={uploadedFiles} />
+        <FileGrid mediaFiles={uploadedFiles} />
       </Modal>
     </div>
   );
