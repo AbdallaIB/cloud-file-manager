@@ -2,7 +2,7 @@ import { body, param } from 'express-validator';
 import { Router } from 'express';
 import { FileController } from '@controllers/file';
 import { validateToken } from '@middlewares/auth';
-import upload from '@utils/upload';
+import upload from '@utils/multer';
 import { validateRequest } from '@middlewares/validators/express-validator';
 
 const index = (router: Router, fileController: FileController) => {
