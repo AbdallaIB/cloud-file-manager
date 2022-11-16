@@ -18,10 +18,10 @@ export async function apiRequest<D = Record<string, unknown>, R = unknown>(
 }
 
 export const getAuthHeaders = () => {
-  const accessToken = localStorage.getItem('token') || '';
+  const accessToken = localStorage.getItem('token') || 'null';
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${JSON.parse(accessToken)}`,
   };
   return headers;
 };

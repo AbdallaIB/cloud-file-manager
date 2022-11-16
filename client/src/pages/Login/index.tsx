@@ -1,4 +1,4 @@
-import { loginUser } from '@api/auth';
+import { createDemoUser, loginUser } from '@api/auth';
 import { LoginInput } from '@api/types';
 import LoginForm from '@components/login/LoginForm';
 import useToast from '@lib/hooks/useToast';
@@ -10,13 +10,13 @@ const Login = () => {
   const { authenticate } = useAuthStore();
   const navigate = useNavigate();
 
-  const handleLogin = async (values: LoginInput) => {
+  const handleLogin = async (values: LoginInput | {}, type: 'demo' | 'real' = 'real') => {
     try {
-      const { user, accessToken } = await loginUser(values);
+      const { user, accessToken } = await (type === 'demo' ? createDemoUser() : loginUser(values as LoginInput));
       success('Login successful');
       authenticate(user, accessToken);
       console.log(user, accessToken);
-      navigate('/files');
+      navigate('/');
     } catch (err: any) {
       errorMessage(err);
     }
@@ -28,7 +28,7 @@ const Login = () => {
         <div className="relative p-4 w-full max-w-md h-full md:h-auto">
           <div className="relative rounded-lg">
             <h1 className="text-center mb-4 font-semibold text-2xl">Login</h1>
-            <LoginForm onLogin={handleLogin} />
+            <LoginForm onLogin={handleLogin} createDemoUser={() => handleLogin({}, 'demo')} />
           </div>
         </div>
       </div>

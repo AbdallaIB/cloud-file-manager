@@ -5,7 +5,7 @@ import useAuthStore from '@lib/stores/auth';
 const RestrictedRoute = ({ children }: RouteProps) => {
   const { authUser } = useAuthStore();
 
-  if (authUser) {
+  if (!authUser) {
     return <Navigate to="/" />;
   }
   return children as JSX.Element;

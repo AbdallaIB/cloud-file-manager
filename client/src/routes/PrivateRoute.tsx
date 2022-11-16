@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }: RouteProps) => {
   const location = useLocation();
   const { authUser } = useAuthStore();
 
-  if (authUser) {
+  if (!authUser) {
     return <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname)}`} />;
   }
 

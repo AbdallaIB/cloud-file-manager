@@ -7,15 +7,10 @@ import Button from '@components/shared/Button';
 
 interface Props {
   onLogin: (values: LoginInput) => void;
+  createDemoUser: () => void;
 }
 
-const LoginForm = ({ onLogin }: Props) => {
-  const handleUseDemoUser = () => {
-    onLogin({
-      username: 'demoaccount01',
-      password: 'Test123%',
-    });
-  };
+const LoginForm = ({ onLogin, createDemoUser }: Props) => {
   return (
     <Formik initialValues={{ username: '', password: '' }} validationSchema={loginSchema} onSubmit={(e) => onLogin(e)}>
       {({ values, errors, isSubmitting, handleChange, handleBlur, touched }) => (
@@ -58,7 +53,7 @@ const LoginForm = ({ onLogin }: Props) => {
             </p>
           </div>
           <div className="flex justify-center">
-            <button type="button" onClick={handleUseDemoUser} className="text-center text-sm underline">
+            <button type="button" onClick={createDemoUser} className="text-center text-sm underline">
               Demo Account
             </button>
           </div>

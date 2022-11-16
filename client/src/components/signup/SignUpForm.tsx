@@ -3,23 +3,14 @@ import { signUpSchema } from '@utils/schemas';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import { SignUpInput } from '@api/types';
-import { generateUsername } from 'unique-username-generator';
 import Button from '@components/shared/Button';
 
 interface Props {
   onSignUp: (values: SignUpInput) => void;
+  createDemoUser: () => void;
 }
 
-const SignUpForm = ({ onSignUp }: Props) => {
-  const handleUseDemoUser = () => {
-    const password = 'Test123%';
-    onSignUp({
-      username: generateUsername(),
-      email: generateUsername() + '@demo.com',
-      password,
-      confirmPassword: password,
-    });
-  };
+const SignUpForm = ({ onSignUp, createDemoUser }: Props) => {
   return (
     <Formik
       initialValues={{
@@ -104,7 +95,7 @@ const SignUpForm = ({ onSignUp }: Props) => {
             </p>
           </div>
           <div className="flex justify-center">
-            <button type="button" onClick={handleUseDemoUser} className="text-center text-sm underline">
+            <button type="button" onClick={createDemoUser} className="text-center text-sm underline">
               Demo Account
             </button>
           </div>
