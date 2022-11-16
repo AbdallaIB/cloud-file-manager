@@ -21,12 +21,12 @@ export const AppRoutes: AppRoute[] = [
   // Private Routes
   {
     type: RouteType.PRIVATE,
-    path: 'dashboard',
+    path: '',
     children: <Dashboard />,
   },
   {
     type: RouteType.PRIVATE,
-    path: '',
+    path: 'files',
     children: <Files />,
   },
   // Public Routes
