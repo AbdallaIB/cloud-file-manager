@@ -6,16 +6,16 @@ type AuthStore = {
   authUser: IUser | null;
   logout: () => void;
   authenticate: (user: IUser, token: string) => void;
-  getToken: () => string;
-  getUser: () => IUser | null;
 };
 
+const getLocalStorage = (key: string) => JSON.parse(localStorage.getItem(key) || 'null');
+const setLocalStorage = (key: string, value: any) => localStorage.setItem(key, JSON.stringify(value));
+
 const useAuthStore = create<AuthStore>((set, get) => ({
-  token: '',
-  authUser: null,
+  token: getLocalStorage('token') || '',
+  authUser: getLocalStorage('user') || null,
   logout: () => {
-    localStorage.setItem('token', '');
-    localStorage.setItem('user', '');
+    localStorage.clear();
     set((state) => ({
       ...state,
       token: '',
@@ -23,20 +23,13 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     }));
   },
   authenticate: (user: IUser, token: string) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+    setLocalStorage('token', token);
+    setLocalStorage('user', user);
     set((state) => ({
       ...state,
       token,
       authUser: user,
     }));
-  },
-  getToken: () => {
-    return get().token || localStorage.getItem('token') || '';
-  },
-  getUser: () => {
-    const user = localStorage.getItem('user');
-    return get().authUser || JSON.parse(user || 'null') || null;
   },
 }));
 
