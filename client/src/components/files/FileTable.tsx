@@ -43,10 +43,6 @@ const FileTable = ({
     console.log(newFiles);
   }, [mediaFiles]);
 
-  const getFileHeader = (file: MediaFile): string => {
-    return file.name + ' - ' + timeSinceDate(file.created_at) + ' - ' + file.size;
-  };
-
   const toggleAllSelectedFiles = () => {
     const newFiles = selectedFiles.map((file: SelectedFiles) => {
       return { ...file, checked: !file.checked };
@@ -178,7 +174,7 @@ const FileTable = ({
         hasFooter={false}
         styles={{ content: { width: '70vw', height: '80vh' } }}
         isOpen={isModalOpen}
-        title={openFile ? getFileHeader(openFile) : ''}
+        title={openFile ? openFile.name : ''}
         cancel={() => {
           setIsModalOpen(false);
           setOpenFile(null);

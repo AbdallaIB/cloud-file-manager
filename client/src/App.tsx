@@ -26,9 +26,8 @@ const App = () => {
       {/* Toast Container */}
       <Toaster
         toastOptions={{
-          className: 'bg-gray-50 dark:bg-gray-700',
+          className: 'bg-gray-200 text-gray-700',
           position: 'top-center',
-          style: { color: 'white' },
         }}
       />
     </div>

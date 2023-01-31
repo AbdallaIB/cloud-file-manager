@@ -3,8 +3,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/abdallaIb/file-manager">
-    <img src="https://file-manager-ib.netlify.app/favicon.ico" alt="Logo">
+  <a href="https://github.com/abdallaIb/cloud-file-manager">
+    <img src="https://cloud-file-manager.netlify.app/favicon.ico" alt="Logo">
   </a>
 <br />
 <br />
@@ -27,13 +27,13 @@
 </p>
     <br />
 <p align="center">
-<a href="https://file-manager-ib.netlify.app/" target="_blank">
+<a href="https://cloud-file-manager.netlify.app/" target="_blank">
     <img alt="Demo on Netlify" src="https://res.cloudinary.com/lukemorales/image/upload/v1599785319/readme_logos/demo_on_netlify_umjmch.png">
   </a>
   </p>
 </div>
 
-[![Product Name Screen Shot][product-screenshot]](https://file-manager-ib.netlify.app)
+[![Product Name Screen Shot][product-screenshot]](https://cloud-file-manager.netlify.app)
 
 </br>
 
@@ -72,7 +72,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/abdallaIb/file-manager
+$ git clone https://github.com/abdallaIb/cloud-file-manager
 ```
 
 Client (React App):
@@ -133,7 +133,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Abdalla Ibrahim - abdalla.ahmed683@gmail.com
 
-Project Link: [https://github.com/abdallaIb/file-manager](https://github.com/abdallaIb/file-manager)
+Project Link: [https://github.com/abdallaIb/cloud-file-manager](https://github.com/abdallaIb/cloud-file-manager)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -152,16 +152,16 @@ Use this space to list resources you find helpful and would like to give credit 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[repo-size-shield]: https://img.shields.io/github/repo-size/abdallaIb/file-manager.svg?style=for-the-badge
-[repo-size-url]: https://img.shields.io/github/repo-size/abdallaIb/file-manager.svg
-[top-language-shield]: https://img.shields.io/github/languages/top/abdallaIb/file-manager.svg?style=for-the-badge
-[top-language-url]: https://img.shields.io/github/languages/top/abdallaIb/file-manager.svg
-[last-commit-shield]: https://img.shields.io/github/last-commit/abdallaIb/file-manager.svg?style=for-the-badge
-[last-commit-url]: https://img.shields.io/github/last-commit/abdallaIb/file-manager.svg
-[issues-shield]: https://img.shields.io/github/issues/abdallaIb/file-manager.svg?style=for-the-badge
-[issues-url]: https://github.com/abdallaIb/file-manager/issues
-[license-shield]: https://img.shields.io/github/license/abdallaIb/file-manager.svg?style=for-the-badge
-[license-url]: https://github.com/abdallaIb/file-manager/blob/master/LICENSE.txt
+[repo-size-shield]: https://img.shields.io/github/repo-size/abdallaIb/cloud-file-manager.svg?style=for-the-badge
+[repo-size-url]: https://img.shields.io/github/repo-size/abdallaIb/cloud-file-manager.svg
+[top-language-shield]: https://img.shields.io/github/languages/top/abdallaIb/cloud-file-manager.svg?style=for-the-badge
+[top-language-url]: https://img.shields.io/github/languages/top/abdallaIb/cloud-file-manager.svg
+[last-commit-shield]: https://img.shields.io/github/last-commit/abdallaIb/cloud-file-manager.svg?style=for-the-badge
+[last-commit-url]: https://img.shields.io/github/last-commit/abdallaIb/cloud-file-manager.svg
+[issues-shield]: https://img.shields.io/github/issues/abdallaIb/cloud-file-manager.svg?style=for-the-badge
+[issues-url]: https://github.com/abdallaIb/cloud-file-manager/issues
+[license-shield]: https://img.shields.io/github/license/abdallaIb/cloud-file-manager.svg?style=for-the-badge
+[license-url]: https://github.com/abdallaIb/cloud-file-manager/blob/master/LICENSE.txt
 [product-screenshot]: https://www.abdalla.pro/assets/images/96e6ef0df909015c19322072ad506eb8.png
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/

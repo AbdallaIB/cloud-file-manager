@@ -25,7 +25,7 @@ const customFormat = combine(
   colorize({ all: true }),
   // format.align(),
   prettyPrint(),
-  printf((info) => `${info.timestamp} ${process.pid}/file-manager ${info.level}: ${info.message}`),
+  printf((info) => `${info.timestamp} ${process.pid}/cloud-file-manager ${info.level}: ${info.message}`),
 );
 
 const logger = createLogger({
