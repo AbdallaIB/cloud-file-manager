@@ -27,7 +27,7 @@ const Header = ({ darkMode, toggleDarkMode }: Props) => {
           <div className="bg-gray-200 w-9 p-0.5 rounded-lg flex justify-center items-center">
             <i className="bx bx-data opacity-50 text-2xl text-gray-700 dark:text-gray-500"></i>
           </div>
-          <span className="whitespace-nowrap font-bold text-xl">File Manager</span>
+          <span className="whitespace-nowrap font-bold text-xl">Cloud File Manager</span>
         </div>
       </Link>
 
