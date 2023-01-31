@@ -12,7 +12,7 @@ const App = () => {
 
   useEffect(() => {
     const path: keyof typeof PageTitles = pathname as any;
-    document.title = PageTitles[path] ?? 'File Manager';
+    document.title = PageTitles[path] ?? 'Cloud File Manager';
   }, [pathname]);
 
   return (
