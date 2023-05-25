@@ -162,7 +162,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [issues-url]: https://github.com/abdallaIb/cloud-file-manager/issues
 [license-shield]: https://img.shields.io/github/license/abdallaIb/cloud-file-manager.svg?style=for-the-badge
 [license-url]: https://github.com/abdallaIb/cloud-file-manager/blob/master/LICENSE.txt
-[product-screenshot]: https://www.abdalla.pro/assets/images/96e6ef0df909015c19322072ad506eb8.png
+[product-screenshot]: https://abdalla.tech/file-manager.png
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
 [node.js]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
